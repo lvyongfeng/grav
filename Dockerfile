@@ -14,11 +14,13 @@ RUN apt-get update -q && \
 		php7.0-zip \
 		php-apcu
 
-RUN mkdir -p grav
+RUN mkdir -p /grav
 
-COPY . grav/
+COPY . /grav/
 
-RUN grav/bin/grav install
+WORKDIR /grav/
+
+RUN /grav/bin/grav install
 
 CMD service php7.0-fpm start && nginx -g "daemon off;"
 
